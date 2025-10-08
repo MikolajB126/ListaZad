@@ -24,7 +24,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="DODAJ"
-            android:background="#DC143C"
+            android:backgroundTint="#DC143C"
             android:textColor="#FFFFFF"
             android:paddingLeft="16dp"
             android:paddingRight="16dp" />
@@ -35,20 +35,38 @@
         android:layout_height="wrap_content"
         android:text="Zakupy: chleb, masło, ser"
         android:paddingTop="12dp"
+        android:paddingBottom="8dp"
         android:textSize="16sp" />
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:background="#BDBDBD" />
 
     <TextView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:text="Do zrobienia: obiad, umyć podłogi"
-        android:paddingTop="8dp"
+        android:paddingTop="12dp"
+        android:paddingBottom="8dp"
         android:textSize="16sp" />
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:background="#BDBDBD" />
 
     <TextView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:text="Weekend: kino, spacer z psem"
-        android:paddingTop="8dp"
+        android:paddingTop="12dp"
+        android:paddingBottom="8dp"
         android:textSize="16sp" />
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:background="#BDBDBD" />
 
 </LinearLayout>
