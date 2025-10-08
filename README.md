@@ -30,12 +30,25 @@
             android:paddingRight="16dp" />
     </LinearLayout>
 
-    <ListView
-        android:id="@+id/listViewItems"
+    <TextView
         android:layout_width="match_parent"
-        android:layout_height="0dp"
-        android:layout_weight="1"
-        android:layout_marginTop="12dp"
-        android:entries="@array/poczatkowe_notatki" />
+        android:layout_height="wrap_content"
+        android:text="Zakupy: chleb, masło, ser"
+        android:paddingTop="12dp"
+        android:textSize="16sp" />
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Do zrobienia: obiad, umyć podłogi"
+        android:paddingTop="8dp"
+        android:textSize="16sp" />
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Weekend: kino, spacer z psem"
+        android:paddingTop="8dp"
+        android:textSize="16sp" />
 
 </LinearLayout>
