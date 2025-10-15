@@ -1,64 +1,64 @@
-package com.example.listazad;
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:padding="8dp"
+    tools:context=".MainActivity">
 
-import androidx.appcompat.app.AppCompatActivity;
-import android.os.Bundle;
-import android.view.View;
-import android.widget.AdapterView;
-import android.widget.ArrayAdapter;
-import android.widget.Button;
-import android.widget.EditText;
-import android.widget.ListView;
-import android.widget.Toast;
-import java.util.ArrayList;
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="#6200EE"
+        android:gravity="center"
+        android:padding="12dp"
+        android:text="listaAndr"
+        android:textColor="#FFFFFF"
+        android:textSize="18sp"
+        android:textStyle="bold" />
 
-public class MainActivity extends AppCompatActivity {
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:padding="8dp">
 
-    EditText editTextNewItem;
-    Button buttonAdd;
-    ListView listViewNotes;
-    ArrayList<String> notes;
-    ArrayAdapter<String> adapter;
+        <EditText
+            android:id="@+id/editTextNewItem"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:hint="Nowy element"
+            android:inputType="text"
+            android:minHeight="48dp" />
 
-    @Override
-    protected void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_main);
+        <Button
+            android:id="@+id/buttonAdd"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="8dp"
+            android:background="@drawable/button_crimson"
+            android:text="DODAJ"
+            android:textColor="#FFFFFF" />
 
-        editTextNewItem = findViewById(R.id.editTextNewItem);
-        buttonAdd = findViewById(R.id.buttonAdd);
-        listViewNotes = findViewById(R.id.listViewNotes);
+        <!-- 🔹 Nowy przycisk USUŃ -->
+        <Button
+            android:id="@+id/buttonDelete"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="8dp"
+            android:background="@drawable/button_crimson"
+            android:text="USUŃ"
+            android:textColor="#FFFFFF" />
+    </LinearLayout>
 
-        notes = new ArrayList<>();
-        notes.add("Zakupy: chleb, masło, ser");
-        notes.add("Do zrobienia: obiad, umyć podłogi");
-        notes.add("Weekend: kino, spacer z psem");
-
-        adapter = new ArrayAdapter<>(this, android.R.layout.simple_list_item_1, notes);
-        listViewNotes.setAdapter(adapter);
-
-        // Dodawanie elementu
-        buttonAdd.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                String newItem = editTextNewItem.getText().toString().trim();
-                if (!newItem.isEmpty()) {
-                    notes.add(newItem);
-                    adapter.notifyDataSetChanged();
-                    editTextNewItem.setText("");
-                }
-            }
-        });
-
-
-        listViewNotes.setOnItemLongClickListener(new AdapterView.OnItemLongClickListener() {
-            @Override
-            public boolean onItemLongClick(AdapterView<?> parent, View view, int position, long id) {
-                String removedItem = notes.get(position);
-                notes.remove(position);
-                adapter.notifyDataSetChanged();
-                Toast.makeText(MainActivity.this, "Usunięto: " + removedItem, Toast.LENGTH_SHORT).show();
-                return true;
-            }
-        });
-    }
-}
+    <ListView
+        android:id="@+id/listViewNotes"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1"
+        android:divider="#DC143C"
+        android:dividerHeight="1dp" />
+</LinearLayout>
