@@ -1,64 +1,77 @@
-<?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:orientation="vertical"
-    android:padding="8dp"
-    tools:context=".MainActivity">
+package com.example.listazad;
 
-    <TextView
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:background="#6200EE"
-        android:gravity="center"
-        android:padding="12dp"
-        android:text="listaAndr"
-        android:textColor="#FFFFFF"
-        android:textSize="18sp"
-        android:textStyle="bold" />
+import androidx.appcompat.app.AppCompatActivity;
+import android.os.Bundle;
+import android.view.View;
+import android.widget.AdapterView;
+import android.widget.ArrayAdapter;
+import android.widget.Button;
+import android.widget.EditText;
+import android.widget.ListView;
+import android.widget.Toast;
+import java.util.ArrayList;
 
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:orientation="horizontal"
-        android:padding="8dp">
+public class MainActivity extends AppCompatActivity {
 
-        <EditText
-            android:id="@+id/editTextNewItem"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:hint="Nowy element"
-            android:inputType="text"
-            android:minHeight="48dp" />
+    EditText editTextNewItem;
+    Button buttonAdd, buttonDelete;
+    ListView listViewNotes;
+    ArrayList<String> notes;
+    ArrayAdapter<String> adapter;
+    int selectedPosition = -1;
 
-        <Button
-            android:id="@+id/buttonAdd"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="8dp"
-            android:background="@drawable/button_crimson"
-            android:text="DODAJ"
-            android:textColor="#FFFFFF" />
+    @Override
+    protected void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        setContentView(R.layout.activity_main);
 
-        <!-- 🔹 Nowy przycisk USUŃ -->
-        <Button
-            android:id="@+id/buttonDelete"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="8dp"
-            android:background="@drawable/button_crimson"
-            android:text="USUŃ"
-            android:textColor="#FFFFFF" />
-    </LinearLayout>
+        editTextNewItem = findViewById(R.id.editTextNewItem);
+        buttonAdd = findViewById(R.id.buttonAdd);
+        buttonDelete = findViewById(R.id.buttonDelete);
+        listViewNotes = findViewById(R.id.listViewNotes);
 
-    <ListView
-        android:id="@+id/listViewNotes"
-        android:layout_width="match_parent"
-        android:layout_height="0dp"
-        android:layout_weight="1"
-        android:divider="#DC143C"
-        android:dividerHeight="1dp" />
-</LinearLayout>
+        notes = new ArrayList<>();
+        notes.add("Zakupy: chleb, masło, ser");
+        notes.add("Do zrobienia: obiad, umyć podłogi");
+        notes.add("Weekend: kino, spacer z psem");
+
+        adapter = new ArrayAdapter<>(this, android.R.layout.simple_list_item_activated_1, notes);
+        listViewNotes.setAdapter(adapter);
+        listViewNotes.setChoiceMode(ListView.CHOICE_MODE_SINGLE);
+
+        listViewNotes.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                selectedPosition = position;
+            }
+        });
+
+        buttonAdd.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                String newItem = editTextNewItem.getText().toString().trim();
+                if (!newItem.isEmpty()) {
+                    notes.add(newItem);
+                    adapter.notifyDataSetChanged();
+                    editTextNewItem.setText("");
+                }
+            }
+        });
+
+        buttonDelete.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if (selectedPosition != -1) {
+                    String removed = notes.get(selectedPosition);
+                    notes.remove(selectedPosition);
+                    adapter.notifyDataSetChanged();
+                    listViewNotes.clearChoices();
+                    selectedPosition = -1;
+                    Toast.makeText(MainActivity.this, "Usunięto: " + removed, Toast.LENGTH_SHORT).show();
+                } else {
+                    Toast.makeText(MainActivity.this, "Wybierz element do usunięcia", Toast.LENGTH_SHORT).show();
+                }
+            }
+        });
+    }
+}
