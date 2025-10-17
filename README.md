@@ -1,77 +1,28 @@
-package com.example.listazad;
-
-import androidx.appcompat.app.AppCompatActivity;
-import android.os.Bundle;
-import android.view.View;
-import android.widget.AdapterView;
-import android.widget.ArrayAdapter;
-import android.widget.Button;
-import android.widget.EditText;
-import android.widget.ListView;
-import android.widget.Toast;
-import java.util.ArrayList;
-
-public class MainActivity extends AppCompatActivity {
-
-    EditText editTextNewItem;
-    Button buttonAdd, buttonDelete;
-    ListView listViewNotes;
-    ArrayList<String> notes;
-    ArrayAdapter<String> adapter;
-    int selectedPosition = -1;
-
-    @Override
-    protected void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_main);
-
-        editTextNewItem = findViewById(R.id.editTextNewItem);
-        buttonAdd = findViewById(R.id.buttonAdd);
-        buttonDelete = findViewById(R.id.buttonDelete);
-        listViewNotes = findViewById(R.id.listViewNotes);
-
-        notes = new ArrayList<>();
-        notes.add("Zakupy: chleb, masło, ser");
-        notes.add("Do zrobienia: obiad, umyć podłogi");
-        notes.add("Weekend: kino, spacer z psem");
-
-        adapter = new ArrayAdapter<>(this, android.R.layout.simple_list_item_activated_1, notes);
-        listViewNotes.setAdapter(adapter);
-        listViewNotes.setChoiceMode(ListView.CHOICE_MODE_SINGLE);
-
-        listViewNotes.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-            @Override
-            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                selectedPosition = position;
-            }
-        });
-
-        buttonAdd.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                String newItem = editTextNewItem.getText().toString().trim();
-                if (!newItem.isEmpty()) {
-                    notes.add(newItem);
-                    adapter.notifyDataSetChanged();
-                    editTextNewItem.setText("");
-                }
-            }
-        });
-
-        buttonDelete.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                if (selectedPosition != -1) {
-                    String removed = notes.get(selectedPosition);
-                    notes.remove(selectedPosition);
-                    adapter.notifyDataSetChanged();
-                    listViewNotes.clearChoices();
-                    selectedPosition = -1;
-                    Toast.makeText(MainActivity.this, "Usunięto: " + removed, Toast.LENGTH_SHORT).show();
-                } else {
-                    Toast.makeText(MainActivity.this, "Wybierz element do usunięcia", Toast.LENGTH_SHORT).show();
-                }
-            }
-        });
-    }
-}
+wykonaj sam layout:
+Elementy aplikacji:
+‒ Tytuł o treści: „Domek w górach”.
+‒ Obraz o nazwie obraz.jpg wypakowany z archiwum.
+‒ Trzy przyciski o treści: „POLUB”, „USUŃ”, „ZAPISZ” umiejscowione obok siebie.
+‒ Napis o treści „0 polubień”.
+‒ Linia horyzontalna.
+‒ Napis o treści „Opis”.
+‒ Napis o treści „Odwiedź komfortowy domek w Sudetach, blisko do szlaków turystycznych”.
+Założenia aplikacji:
+‒ Interfejs użytkownika zapisany za pomocą języka znaczników wspieranego w danym środowisku (np.
+XAML, XML).
+‒ Zastosowany typ rozkładu liniowy wertykalny (Linear / Stack lub inny o tej idei) z zagłębionym
+rozkładem liniowym horyzontalnym dla przycisków.
+‒ Margines wewnętrzny górny dla całej strony lub rozkładu wertykalnego: 20 px (lub dp)
+‒ Kolor tła przycisków i rozkładu, w którym się znajdują: Teal (#008080), zgodnie z Obrazem 1a.
+Więcej arkuszy znajdziesz na stronie: arkusze.pl
+Strona 4 z 5
+‒ Kolory czcionki: biały dla przycisków oraz Gray (#808080) dla napisu „Odwiedź...”, zgodnie
+z Obrazem 1a.
+‒ Czcionka tytułu ma rozmiar największy spośród użytych w aplikacji.
+‒ Czcionka napisu „Opis” jest pogrubiona.
+‒ Napis o liczbie polubień jest wyrównany do prawej.
+‒ Obraz wypełnia całą szerokość strony (zależnie od zastosowanego aspektu może być automatycznie
+obcięty przez emulator – zobacz obraz 1b).
+‒ Linia horyzontalna jest koloru Gray (#808080), dopuszcza się również prostokąt o wysokości 1.
+‒ Aplikacja powinna być zapisana czytelnie, z zachowaniem zasad czystego formatowania kodu, należy
+stosować znaczące nazwy zmiennych i funkcji.
